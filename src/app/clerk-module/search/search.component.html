@@ -1,0 +1,145 @@
+<div #content class="home_content">
+  <div class="text">
+    <form role="search" id="search-form">
+      <label for="search-account"><i class="bx bx-user-circle"></i> </label>
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Ingrese N° cuenta"
+        required=""
+        style="border-color: #333"
+      />
+      <input
+        type="text"
+        id="search-dui"
+        placeholder="Ingrese DUI"
+        required=""
+        style="border-color: #333"
+      />
+      <button
+        class="btn btn-success"
+        id="search-button"
+        style="border-color: #1d1b31; background-color: #1d1b31"
+      >
+        <i class="bx bx-search-alt-2"></i>
+      </button>
+    </form>
+    <div class="content-inline">
+      <!--  <div class="search-inline">
+         <input name="txtSearch" class="search-inline--input" placeholder="Ingrese N° DUI">
+      </div> -->
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="card mt-3" style="width: 50%">
+            <div class="profile mt-3">
+              <div class="profile-details">
+                <img
+                  src="https://cdn.prod.website-files.com/65489618a9e91669c78068e2/654a1efe01bafb20819b35f5_foto_curriculum-scaled.jpg"
+                  alt=""
+                />
+              </div>
+            </div>
+
+            <div class="row-nr"></div>
+            <div class="card-body">
+              <div class="row justify-content-center cliente">
+                <div class="row justify-content-center cxname"  *ngIf="clienteRecibido$ && (clienteRecibido$|async)?.name && (clienteRecibido$|async)?.lastname">
+                  {{(clienteRecibido$|async)?.name}} {{(clienteRecibido$|async)?.lastname}}
+                </div>
+                <ng-template #loading>
+                  Loading client information...
+                </ng-template>
+                <div class="row justify-content-center dui">DUI: {{(clienteRecibido$|async)?.dui}}</div>
+                <button
+                  class="btn btn-secondary mt-3"
+                  style="border-color: #1d1b31; background-color: #1d1b31"
+                  (click)="show()"
+                >
+                  <span #label>Mostrar cuentas</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div #cuentas id="cuentas" class="container mt-3">
+        <div class="main-wrapper">
+          <div class="app-wrapper">
+            <div class="app">
+              <div class="app-body">
+                <div class="app-header mb-3">
+                  <div class="header-label">Cuentas</div>
+                </div>
+                <div *ngFor="let cuenta of cuentasDeCliente" class="app-row" (click)="getCuenta(cuenta.id)">
+                  <div class="row-nr">{{cuenta.id}}</div>
+                  <div class="row-label">{{cuenta.type}}</div>
+                  <div class="row-icon"><i class="fa fa-angle-right"></i></div>
+                  <div class="row-amount">$ {{cuenta.balance}}</div>
+                </div>
+              </div>
+              <div class="app-footer">
+                <a  class="raised-link" 
+                    href="#createAccount" 
+                    data-toggle="modal" 
+                    (click)="onSelectOption($event, client.id)">+ Agregar cuenta</a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal crear nueva cuenta -->
+<div id="createAccount" class="modal fade" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form (ngSubmit)="crearCuenta()">
+        <div class="modal-header">
+          <h4 class="modal-title">Crear cuenta para: {{(clienteRecibido$|async)?.name}} {{(clienteRecibido$|async)?.lastname}}</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group"
+                >
+            <select class="form-select"  
+                    [(ngModel)]="accountSend.type"
+                    name="accountType"
+                    >
+              <option value="" disabled>Seleccione tipo de cuenta</option>
+              <option value="Ahorro" 
+                 name="Ahorro">Ahorro</option>
+              <option value="Chequera" 
+              name="chequera">Chequera</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Balance</label>
+            <input type="text" 
+              type="number"
+              class="form-control" 
+              required
+              [(ngModel)]="accountSend.balance"
+              name="apellido-edit" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input
+            type="button"
+            class="btn btn-default"
+            data-dismiss="modal"
+            value="Cancel"
+          />
+          <input type="submit" class="btn btn-info" value="Crear" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

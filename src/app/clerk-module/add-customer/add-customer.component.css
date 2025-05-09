@@ -11,7 +11,6 @@ tr, th, td {
 }
 .table-wrapper {
   background: #fff;
-  padding: 20px 25px;
   margin: 30px 0;
   border-radius: 3px;
   box-shadow: 0 1px 1px rgba(0,0,0,.05);
@@ -21,7 +20,7 @@ tr, th, td {
   background: #435d7d;
   color: #fff;
   padding: 16px 30px;
-  margin: -20px -25px 10px;
+
   border-radius: 3px 3px 0 0;
 }
 .table-title h2 {
@@ -93,6 +92,9 @@ table.table td a.edit {
 }
 table.table td a.delete {
   color: #F44336;
+}
+table.table td a.add {
+  color: green;
 }
 table.table td i {
   font-size: 19px;
@@ -228,3 +230,11 @@ table.table .avatar {
   font-weight: normal;
 }
 
+.mover{
+  margin-left:78px;
+}
+
+.actions {
+  margin: 0% !important;
+  padding: 0% !important;
+}
